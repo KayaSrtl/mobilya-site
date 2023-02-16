@@ -1,7 +1,6 @@
+//Copyright 2023 Kaya Sertel. All Rights Reserved.
+
 var window_height, window_width;
-
-
-
 
 $( document ).ready(function() {
 	
@@ -67,14 +66,14 @@ function beReadyPage() {
 	$(".swiper-container-wrapper").css("height", window_height);
 }
 
-setTimeout(function() { changeImgg(); }, 5000);
+/*setTimeout(function() { changeImgg(); }, 5000);
 
 function changeImgg() {
 	if(is_change_on_going && !is_trans_button_clicked)
 		transImg(transNum+1);
 	is_trans_button_clicked = false;
 	setTimeout(function() { changeImgg(); }, 5000);
-}
+}*/
 
 setTimeout(function() { beReadyPage();}, 200);
 setTimeout(function() { beReadyPage();}, 500);
