@@ -67,12 +67,13 @@ $( document ).ready(function() {
 	});
 	
 	var mySwiper = $(".swiper-container")[0].swiper;
-	mySwiper.autoplay.start();
-  /*$('.swiper-container').mouseenter(function() {
-    mySwiper.autoplay.stop();
-  }).mouseleave(function() {
-    mySwiper.autoplay.start();
-  })*/
+	mySwiper.autoplay.stop();
+	//mySwiper.autoplay.start();
+	/*$('.go_furniture_detail_a').mouseenter(function() {
+		mySwiper.autoplay.stop();
+	}).mouseleave(function() {
+		mySwiper.autoplay.start();
+	})*/
 });
 
 
@@ -95,6 +96,7 @@ function beReadyPage() {
 	window_height = parseInt($( window ).height());
 	window_width = parseInt($( window ).width());
 	$(".swiper-container-wrapper").css("height", window_height);
+	$(".main_container_2").css("height", window_height);
 	
 	if(window_width < 620) { 
 		$(".mapouter").css("width", window_width - 20);
