@@ -4,6 +4,34 @@ body {
     margin: 0px !important;
 }
 
+/* width */
+::-webkit-scrollbar {
+	display: block;
+	position: relative;
+	right: 2px;
+	border-radius: 8px;
+	border: solid  black 2px;
+	width: 14.5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	border-radius: 2px;
+	background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+	border: solid #f1f1f1 3.5px;
+	border-radius: 8px;
+	background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555; 
+}
+
 .noselect {
   -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -13,6 +41,18 @@ body {
             user-select: none;
 }
 
+p {
+	text-align: center;
+	font-family: Atkinson Hyperlegible, sans-serif;
+}
+
+.main_div {
+	width: 100%;
+	overflow-x: hidden;
+	height: auto;
+	position: relative;
+	z-index: 0;
+}
 
 .fixed_menu_top {
 	top: 0px;
@@ -143,7 +183,7 @@ body {
 }
 
 .top_part_logo {
-	color: white;
+	color: white !important;
 }
 
 
@@ -498,18 +538,134 @@ body {
   to {background: rgba(255, 255, 255, 0.3) !important;}
 }
 
-.main_div {
-	width: 100%;
-	overflow-x: hidden;
-	height: 3000px;
-	position: relative;
-	z-index: 0;
+.wrapper {
+	
+	display: inline-flex;
+	margin-top: 0px;
+	margin-right: 70px;
 }
 
-h1 {
-	text-align: center;
-	margin-top: 200px;
-	color: grey;
+.wrapper .icon {
+	
+  position: relative;
+  /*background-color: #ffffff;*/
+  color: white;
+  border-radius: 50px;
+  padding: 15px;
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip {
+  position: absolute;
+  top: 0;
+  font-size: 14px;
+  background-color: #ffffff;
+  color: #ffffff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+
+
+.wrapper .tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background-color: #ffffff;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .icon:hover .tooltip {
+  top: -45px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.wrapper .icon:hover span,
+.wrapper .icon:hover .tooltip {
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper .facebook:hover,
+.wrapper .facebook:hover .tooltip,
+.wrapper .facebook:hover .tooltip::before {
+  background-color: #3b5999;
+  color: #ffffff;
+}
+
+.wrapper .twitter:hover,
+.wrapper .twitter:hover .tooltip,
+.wrapper .twitter:hover .tooltip::before {
+  background-color: #46c1f6;
+  color: #ffffff;
+}
+
+.wrapper .instagram:hover,
+.wrapper .instagram:hover .tooltip,
+.wrapper .instagram:hover .tooltip::before {
+  /*background-color: #e1306c;*/
+    background: #f09433; 
+background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+background-position: 20%;
+  color: #ffffff;
+}
+
+.wrapper .telegram:hover,
+.wrapper .telegram:hover .tooltip,
+.wrapper .telegram:hover .tooltip::before {
+  /*background: linear-gradient(139deg, rgba(43,133,193,1) 0%, rgba(49,169,219,1) 100%);*/
+  background-color: #35ade1;
+  color: #ffffff;
+}
+
+.wrapper .youtube:hover,
+.wrapper .youtube:hover .tooltip,
+.wrapper .youtube:hover .tooltip::before {
+  background-color: red;
+  color: #ffffff;
+}
+
+.wrapper .whatsapp:hover,
+.wrapper .whatsapp:hover .tooltip,
+.wrapper .whatsapp:hover .tooltip::before {
+  background-color: #008000;
+  color: #ffffff;
+}
+
+.wrapper .map:hover,
+.wrapper .map:hover .tooltip,
+.wrapper .map:hover .tooltip::before {
+  background-color: #498ee3;
+  color: #ffffff;
+}
+
+.wrapper .menu_button_clickk:hover,
+.wrapper .menu_button_clickk:hover .tooltip,
+.wrapper .menu_button_clickk:hover .tooltip::before {
+  background-color: black;
+  color: #ffffff;
 }
 
 .swiper-container-wrapper {
@@ -518,6 +674,10 @@ h1 {
 }
 .swiper-container {
 	height: 100%;
+}
+
+:root {
+    --swiper-theme-color: white !important;
 }
 .swiper-container:hover .swiper-button-prev,
 .swiper-container:hover .swiper-button-next {
@@ -544,8 +704,153 @@ h1 {
 	to	{transform: translateY(-5px);}
 }
 
+.contect_part {
+	width: 100%;
+	background-color: #2d3633;
+	color: white;
+	position: relative;
+	z-index: 6;
+}
+
+.contect_part_cont {
+	position: relative;
+}
+
+.contect_part_cont_2 {
+	display: relative;
+}
+
 .swiper_slide_img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+.social_media_part {
+	z-index: 5;
+	position: relative;
+}
+
+.mapouter {
+	z-index: 4;
+	/*position: absolute;
+	margin-top: -72px;
+	margin-left: 10px;*/
+}
+
+.maps {
+	display: block;
+	width: 100%;
+}
+
+.maps_cont {
+	display: flex;
+	justify-content: space-around;
+}
+
+.social_and_text_part {
+	display: flex; 
+    justify-content: space-around;
+}
+
+.contect_social_header { 
+	text-decoration: underline;
+	position: relative;
+}
+
+
+
+
+@media only screen and (max-width: 701px) {
+	.contect_social_header {
+		font-size: 50px;
+		right: 0px;
+		position: relative;
+		margin-bottom: 5px;
+		padding-top: 20px;
+		margin-top: 0px;
+		text-align: left;
+	}	
+	
+	.social_and_text_part {
+		justify-content: space-around;
+		flex-direction: column;
+		align-items: center;
+	}
+	.maps {
+		height: 400px;
+	}
+	
+	.maps_cont {
+		justify-content: space-around;
+		flex-direction: column;
+		align-items: center;
+		height: 400px;
+	}
+}
+
+
+
+@media only screen and (min-width: 701px) and (max-width: 1301px) { 
+	.contect_social_header {
+		font-size: 50px;
+		right: 0px;
+		position: relative;
+		margin-bottom: 5px;
+		padding-top: 20px;
+		margin-top: 0px;
+		text-align: left;
+	}
+	
+	.maps {
+		height: 400px;
+	}
+	
+	.maps_cont {
+		justify-content: space-around;
+		flex-direction: column;
+		align-items: center;
+		height: 400px;
+	}
+}
+
+@media only screen and (min-width: 1301px) {
+	.contect_social_header {
+		font-size: 50px;
+		right: 0px;
+		margin-bottom: 5px;
+		padding-top: 20px;
+		margin-top: 0px;
+		text-align: left;
+	}
+	
+	.social_media_part {
+		margin-right: 0px !important;
+	}
+	
+	.maps {
+		height: 400px;
+		padding: 40px 0px;
+	}
+	
+	.maps_cont {
+		height: 400px;
+	}
+}
+
+
+.copywrite_part {
+	display: block;
+	position: relative;
+	width: 100%;
+	background-color: #555a63;
+}
+
+.copywrite_text {
+	color: white;
+	font-size: 20px;
+	margin: 0px;
+	text-align: center;
+	padding-top: 12px;
+	padding-bottom: 12px;
 }
