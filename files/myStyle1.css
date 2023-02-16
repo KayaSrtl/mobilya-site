@@ -538,7 +538,7 @@ p {
 	font-size: 40px;
 	position: absolute;
     bottom: 0px;
-    left: calc(50% - 213px);
+    left: calc(50% - 222px);
 	font-family: Atkinson Hyperlegible, sans-serif;
 	z-index: 11;
 }
