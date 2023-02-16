@@ -13,13 +13,19 @@ $( document ).ready(function() {
 	});
 	*/
 	
-	$(".icon.whatsapp").on('click', function(){
+	/*$(".icon.whatsapp").on('click', function(){
 		window.open('https://wa.me/xxxxxxxxxxxxx', '_blank');
 	});
 	
 	$(".icon.map.TURKEY").on('click', function(){
-		window.open('https://www.google.com/maps', '_blank');
+		window.open('https://goo.gl/maps/4X9SkuMErJdEcfG67', '_blank');
+	});*/
+	
+	$(".left_right_buttons_swipper").on('click', function(){
+		setTimeout(function() { mySwiper.autoplay.start();}, 6000);
 	});
+	
+	
 	
 	beReadyPage();
 	
@@ -28,6 +34,9 @@ $( document ).ready(function() {
 			nextEl: '.swiper-button-next',
 			prevEl: '.swiper-button-prev'
 			},
+			autoplay: {
+    delay: 3000, // change delay as needed
+  },
 		loop: true,
 	});
 
@@ -56,6 +65,14 @@ $( document ).ready(function() {
 			goToFirstSlide();
 		}
 	});
+	
+	var mySwiper = $(".swiper-container")[0].swiper;
+	mySwiper.autoplay.start();
+  /*$('.swiper-container').mouseenter(function() {
+    mySwiper.autoplay.stop();
+  }).mouseleave(function() {
+    mySwiper.autoplay.start();
+  })*/
 });
 
 
