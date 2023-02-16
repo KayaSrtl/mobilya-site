@@ -68,12 +68,12 @@ $( document ).ready(function() {
 	
 	var mySwiper = $(".swiper-container")[0].swiper;
 	mySwiper.autoplay.stop();
-	//mySwiper.autoplay.start();
-	/*$('.go_furniture_detail_a').mouseenter(function() {
+	mySwiper.autoplay.start();
+	$('.go_furniture_detail_a').mouseenter(function() {
 		mySwiper.autoplay.stop();
 	}).mouseleave(function() {
 		mySwiper.autoplay.start();
-	})*/
+	})
 });
 
 
