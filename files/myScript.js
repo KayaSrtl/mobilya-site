@@ -1,8 +1,18 @@
 //Copyright 2023 Kaya Sertel. All Rights Reserved.
 
-var window_height, window_width;
+var window_height, window_width, old_active_index = 0, new_active_index;
 
 $( document ).ready(function() {
+	var mySwiper = new Swiper('.swiper-container', {
+		navigation: {
+			nextEl: '.swiper-button-next',
+			prevEl: '.swiper-button-prev'
+			},
+			autoplay: {
+		delay: 3000, // change delay as needed
+		},
+		loop: true,
+	});
 	
 	/*$( ".left_right_buttons_swipper" ).hover(function() {
 		$(this).css({"-webkit-transform": "translateY(-5px)"});
@@ -25,20 +35,14 @@ $( document ).ready(function() {
 		setTimeout(function() { mySwiper.autoplay.start();}, 6000);
 	});
 	
-	
+	$(".trans_click").on('click', function(){
+		alert($(this).attr('id'));
+		mySwiper.slideTo(2);
+	});
 	
 	beReadyPage();
 	
-	var mySwiper = new Swiper('.swiper-container', {
-		navigation: {
-			nextEl: '.swiper-button-next',
-			prevEl: '.swiper-button-prev'
-			},
-			autoplay: {
-    delay: 3000, // change delay as needed
-  },
-		loop: true,
-	});
+	
 
 	// Define the function to go to the last slide from the first slide
 	function goToLastSlide() {
@@ -53,30 +57,42 @@ $( document ).ready(function() {
 // Add a click event listener to the first slide to go to the last slide
 	var firstSlide = document.querySelector('.swiper-slide:first-of-type');
 	firstSlide.addEventListener('click', function() {
-		if (mySwiper.activeIndex === 0) {
-			goToLastSlide();
+		if (mySwiper.activeIndex == 0) {
+			mySwiper.slideTo(3);
 		}
 	});
 
 	// Add a click event listener to the last slide to go to the first slide
 	var lastSlide = document.querySelector('.swiper-slide:last-of-type');
 	lastSlide.addEventListener('click', function() {
-		if (mySwiper.activeIndex === mySwiper.slides.length - 1) {
-			goToFirstSlide();
+		if (mySwiper.activeIndex == mySwiper.slides.length - 1) {
+			mySwiper.slideTo(0);
 		}
 	});
 	
 	var mySwiper = $(".swiper-container")[0].swiper;
 	mySwiper.autoplay.stop();
-	mySwiper.autoplay.start();
+	/*mySwiper.autoplay.start();
 	$('.go_furniture_detail_a').mouseenter(function() {
 		mySwiper.autoplay.stop();
 	}).mouseleave(function() {
 		mySwiper.autoplay.start();
-	})
+	})*/
+	
+	mySwiper.on('slideChange', function () {
+		/*if (swiper.autoplay.running) {
+			console.log('Slide changed automatically');
+		} else {
+			console.log('Slide changed by user');
+		}*/
+
+		new_active_index = mySwiper.activeIndex;
+		var elementID = "transClick_";
+		document.getElementById(elementID + old_active_index).className = "trans_click";
+		document.getElementById(elementID + new_active_index).className = "trans_click trans_active";
+		old_active_index = new_active_index;
+	});
 });
-
-
 
 $(window).scroll(function(event){
 	
