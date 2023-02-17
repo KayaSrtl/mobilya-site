@@ -1,15 +1,43 @@
 //Copyright 2023 Kaya Sertel. All Rights Reserved.
 
-var window_height, window_width, old_active_index = 0, new_active_index;
+var window_height, window_width, old_active_index = 0, new_active_index, current_active_index = 0;
 
 $( document ).ready(function() {
 	var mySwiper = new Swiper('.swiper-container', {
 		navigation: {
 			nextEl: '.swiper-button-next',
 			prevEl: '.swiper-button-prev'
+		},
+		autoplay: {
+			delay: 3000, // change delay as needed
+		},
+		on: {
+			slideNextTransitionEnd: (swiper) => {
+				console.log('SWIPED RIGHT');
+				if(current_active_index == 3)
+					current_active_index = 0;
+				else
+					current_active_index++;
+				
+				new_active_index = current_active_index;//mySwiper.activeIndex;
+				var elementID = "transClick_";
+				document.getElementById(elementID + old_active_index).className = "trans_click";
+				document.getElementById(elementID + new_active_index).className = "trans_click trans_active";
+				old_active_index = new_active_index;
 			},
-			autoplay: {
-		delay: 3000, // change delay as needed
+			slidePrevTransitionEnd: (swiper) => {
+				console.log('SWIPED LEFT');
+				if(current_active_index == 0)
+					current_active_index = 3;
+				else
+					current_active_index--;
+				
+				new_active_index = current_active_index;//mySwiper.activeIndex;
+				var elementID = "transClick_";
+				document.getElementById(elementID + old_active_index).className = "trans_click";
+				document.getElementById(elementID + new_active_index).className = "trans_click trans_active";
+				old_active_index = new_active_index;
+			}
 		},
 		loop: true,
 	});
@@ -33,17 +61,21 @@ $( document ).ready(function() {
 	
 	$(".left_right_buttons_swipper").on('click', function(){
 		setTimeout(function() { mySwiper.autoplay.start();}, 6000);
+		//if($(this).attr('class').slice(14, 18) == "prev")	//swiper-button-prev
+			//;
 	});
 	
 	$(".trans_click").on('click', function(){
 		alert($(this).attr('id'));
-		mySwiper.slideTo(2);
+		index = 2;
+		mySwiper.slideTo(index);
+		current_active_index = index;
 	});
 	
 	beReadyPage();
 	
 	
-
+	/*
 	// Define the function to go to the last slide from the first slide
 	function goToLastSlide() {
 		mySwiper.slideTo(mySwiper.slides.length - 1);
@@ -58,7 +90,10 @@ $( document ).ready(function() {
 	var firstSlide = document.querySelector('.swiper-slide:first-of-type');
 	firstSlide.addEventListener('click', function() {
 		if (mySwiper.activeIndex == 0) {
-			mySwiper.slideTo(3);
+			for(var i = 0; i < mySwiper.slides.length - 1; i++)
+				mySwiper.slideNext(i*30);
+			current_active_index = 3;
+			alert(mySwiper.activeIndex);
 		}
 	});
 
@@ -66,9 +101,10 @@ $( document ).ready(function() {
 	var lastSlide = document.querySelector('.swiper-slide:last-of-type');
 	lastSlide.addEventListener('click', function() {
 		if (mySwiper.activeIndex == mySwiper.slides.length - 1) {
-			mySwiper.slideTo(0);
+			goToFirstSlide();
+			current_active_index = 0;
 		}
-	});
+	});*/
 	
 	var mySwiper = $(".swiper-container")[0].swiper;
 	mySwiper.autoplay.stop();
@@ -80,17 +116,15 @@ $( document ).ready(function() {
 	})*/
 	
 	mySwiper.on('slideChange', function () {
-		/*if (swiper.autoplay.running) {
-			console.log('Slide changed automatically');
-		} else {
-			console.log('Slide changed by user');
-		}*/
+		if (mySwiper.autoplay.running) {
+			if(current_active_index == 3)
+				current_active_index = 0;
+			//console.log('Slide changed automatically');
 
-		new_active_index = mySwiper.activeIndex;
-		var elementID = "transClick_";
-		document.getElementById(elementID + old_active_index).className = "trans_click";
-		document.getElementById(elementID + new_active_index).className = "trans_click trans_active";
-		old_active_index = new_active_index;
+		} else {
+			//console.log('Slide changed by user');
+		}
+
 	});
 });
 
