@@ -1,6 +1,6 @@
 //Copyright 2023 Kaya Sertel. All Rights Reserved.
 
-var window_height, window_width, old_active_index = 0, new_active_index, current_active_index = 0;
+var window_height, window_width, old_active_index = 0, new_active_index, current_active_index = 0, trans_click_pressed = false;
 
 $( document ).ready(function() {
 	var mySwiper = new Swiper('.swiper-container', {
@@ -14,28 +14,28 @@ $( document ).ready(function() {
 		on: {
 			slideNextTransitionEnd: (swiper) => {
 				console.log('SWIPED RIGHT');
-				if(current_active_index == 3)
-					current_active_index = 0;
-				else
-					current_active_index++;
-				
+				if(!trans_click_pressed) {
+					if(current_active_index == mySwiper.slides.length - 1)
+						current_active_index = 0;
+					else
+						current_active_index++;
+				}
+				trans_click_pressed = false;
 				new_active_index = current_active_index;//mySwiper.activeIndex;
-				var elementID = "transClick_";
-				document.getElementById(elementID + old_active_index).className = "trans_click";
-				document.getElementById(elementID + new_active_index).className = "trans_click trans_active";
+				changeTransClick(old_active_index, new_active_index);
 				old_active_index = new_active_index;
 			},
 			slidePrevTransitionEnd: (swiper) => {
 				console.log('SWIPED LEFT');
-				if(current_active_index == 0)
-					current_active_index = 3;
-				else
-					current_active_index--;
-				
+				if(!trans_click_pressed) {
+					if(current_active_index == 0)
+						current_active_index = mySwiper.slides.length - 1;
+					else
+						current_active_index--;
+				}
+				trans_click_pressed = false;
 				new_active_index = current_active_index;//mySwiper.activeIndex;
-				var elementID = "transClick_";
-				document.getElementById(elementID + old_active_index).className = "trans_click";
-				document.getElementById(elementID + new_active_index).className = "trans_click trans_active";
+				changeTransClick(old_active_index, new_active_index);
 				old_active_index = new_active_index;
 			}
 		},
@@ -59,16 +59,23 @@ $( document ).ready(function() {
 		window.open('https://goo.gl/maps/4X9SkuMErJdEcfG67', '_blank');
 	});*/
 	
+	function changeTransClick(old_index, new_index) {
+		var elementID = "transClick_";
+		document.getElementById(elementID + old_index).className = "trans_click";
+		document.getElementById(elementID + new_index).className = "trans_click trans_active";
+	}
+	
 	$(".left_right_buttons_swipper").on('click', function(){
-		setTimeout(function() { mySwiper.autoplay.start();}, 6000);
-		//if($(this).attr('class').slice(14, 18) == "prev")	//swiper-button-prev
-			//;
+		
 	});
 	
 	$(".trans_click").on('click', function(){
-		alert($(this).attr('id'));
-		index = 2;
+		//if($(this).attr('class').slice(14, 18) == "prev")	//swiper-button-prev
+			//;
+		var index = $(this).attr('id').slice(11, 12);
+		console.log(index);
 		mySwiper.slideTo(index);
+		trans_click_pressed = true;
 		current_active_index = index;
 	});
 	
@@ -117,14 +124,13 @@ $( document ).ready(function() {
 	
 	mySwiper.on('slideChange', function () {
 		if (mySwiper.autoplay.running) {
-			if(current_active_index == 3)
-				current_active_index = 0;
 			//console.log('Slide changed automatically');
-
 		} else {
+			mySwiper.autoplay.stop();
+			setTimeout(function() { mySwiper.autoplay.start();}, 6000);
 			//console.log('Slide changed by user');
 		}
-
+			
 	});
 });
 
