@@ -54,6 +54,11 @@ p {
 	z-index: 0;
 }
 
+.fixed_menu_space {
+	width: 100%;
+	height: 60px;
+}
+
 .fixed_menu_top {
 	top: 0px;
 	width: 100%;
@@ -82,7 +87,7 @@ p {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	opacity: 0.3;
+	opacity: 0.4;
 
 }
 
@@ -216,6 +221,10 @@ p {
 		height: 50px;
 	}
 	
+	.fixed_menu_space {
+		height: 50px;
+	}
+	
 	.icon_top_div {
 		width: 17px;
 		padding: 5px;
@@ -276,6 +285,10 @@ p {
 		margin: 6px 8px;
 	}
 	.fixed_menu_top {
+		height: 45px;
+	}
+	
+	.fixed_menu_space {
 		height: 45px;
 	}
 	
@@ -343,6 +356,10 @@ p {
 	}
 	
 	.fixed_menu_top {
+		height: 55px;
+	}
+	
+	.fixed_menu_space {
 		height: 55px;
 	}
 	
@@ -434,6 +451,10 @@ p {
 		height: 87px;
 	}
 	
+	.fixed_menu_space {
+		height: 87px;
+	}
+	
 	.top_part_logo {
 		height: 50px;
 		font-size: 22px;
@@ -515,8 +536,8 @@ p {
 }
 
 .fixed_menu_top a:hover {
-	animation: button_background_hover_ani 0.5s ease-in-out;
-	background: rgba(255, 255, 255, 0.3);
+	animation: button_background_hover_ani 0.13s ease-in-out;
+	background: rgba(255, 255, 255, 0.2);
 }
 .transition_sign_cont {
 	width: fit-content;
@@ -841,7 +862,6 @@ background-position: 20%;
 	z-index: 6;
 	position: relative;
 	width: 100%;
-	height: 100vh;
 }
 .swiper-container {
 	height: 100%;
