@@ -1,6 +1,6 @@
 //Copyright 2023 Kaya Sertel. All Rights Reserved.
 
-var window_height, window_width, old_active_index = 0, new_active_index, current_active_index = 0, trans_click_pressed = false;
+var window_height, window_width, old_active_index = 0, current_active_index = 0, trans_click_pressed = false;
 
 $( document ).ready(function() {
 	var mySwiper = new Swiper('.swiper-container', {
@@ -13,7 +13,7 @@ $( document ).ready(function() {
 		},
 		on: {
 			slideNextTransitionEnd: (swiper) => {
-				console.log('SWIPED RIGHT');
+				//console.log('SWIPED RIGHT');
 				if(!trans_click_pressed) {
 					if(current_active_index == mySwiper.slides.length - 1)
 						current_active_index = 0;
@@ -21,12 +21,12 @@ $( document ).ready(function() {
 						current_active_index++;
 				}
 				trans_click_pressed = false;
-				new_active_index = current_active_index;//mySwiper.activeIndex;
-				changeTransClick(old_active_index, new_active_index);
-				old_active_index = new_active_index;
+				//new_active_index = current_active_index;//mySwiper.activeIndex;
+				changeTransClick(old_active_index, current_active_index);
+				old_active_index = current_active_index;
 			},
 			slidePrevTransitionEnd: (swiper) => {
-				console.log('SWIPED LEFT');
+				//console.log('SWIPED LEFT');
 				if(!trans_click_pressed) {
 					if(current_active_index == 0)
 						current_active_index = mySwiper.slides.length - 1;
@@ -34,9 +34,9 @@ $( document ).ready(function() {
 						current_active_index--;
 				}
 				trans_click_pressed = false;
-				new_active_index = current_active_index;//mySwiper.activeIndex;
-				changeTransClick(old_active_index, new_active_index);
-				old_active_index = new_active_index;
+				//new_active_index = current_active_index;//mySwiper.activeIndex;
+				changeTransClick(old_active_index, current_active_index);
+				old_active_index = current_active_index;
 			}
 		},
 		loop: true,
@@ -51,13 +51,13 @@ $( document ).ready(function() {
 	});
 	*/
 	
-	/*$(".icon.whatsapp").on('click', function(){
+	$(".icon.whatsapp").on('click', function(){
 		window.open('https://wa.me/xxxxxxxxxxxxx', '_blank');
 	});
 	
 	$(".icon.map.TURKEY").on('click', function(){
 		window.open('https://goo.gl/maps/4X9SkuMErJdEcfG67', '_blank');
-	});*/
+	});
 	
 	function changeTransClick(old_index, new_index) {
 		var elementID = "transClick_";
@@ -66,13 +66,12 @@ $( document ).ready(function() {
 	}
 	
 	$(".left_right_buttons_swipper").on('click', function(){
-		
+		setTimeout(function() { mySwiper.autoplay.start();}, 6000);
 	});
 	
 	$(".trans_click").on('click', function(){
-		//if($(this).attr('class').slice(14, 18) == "prev")	//swiper-button-prev
-			//;
 		var index = $(this).attr('id').slice(11, 12);
+		if(index == current_active_index)
 		console.log(index);
 		mySwiper.slideTo(index);
 		trans_click_pressed = true;
@@ -113,14 +112,23 @@ $( document ).ready(function() {
 		}
 	});*/
 	
+	$(window).scroll(function(event){
+		if($(this).scrollTop() > window_height) {
+			mySwiper.autoplay.stop();
+		}
+		else {
+			mySwiper.autoplay.start();
+		}
+	});
+	
 	var mySwiper = $(".swiper-container")[0].swiper;
-	mySwiper.autoplay.stop();
-	/*mySwiper.autoplay.start();
+	//mySwiper.autoplay.stop();
+	mySwiper.autoplay.start();
 	$('.go_furniture_detail_a').mouseenter(function() {
 		mySwiper.autoplay.stop();
 	}).mouseleave(function() {
 		mySwiper.autoplay.start();
-	})*/
+	})
 	
 	mySwiper.on('slideChange', function () {
 		if (mySwiper.autoplay.running) {
@@ -134,16 +142,24 @@ $( document ).ready(function() {
 	});
 });
 
-$(window).scroll(function(event){
-	
-	
-});
+//if( !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )) {
+	$(window).scroll(function(event){
+		st = $(this).scrollTop();
+		//$(".main_container_2_bg_photo").css("top", (st*(150.0/(window_height*2))-150));
+		$(".main_container_2_bg_photo").css('transform', 'translate3d(0px, ' + (st*(150.0/(window_height*2))-150) + 'px, 0px)');
+	});
+//}
+
+/*$(window).scroll(function(event){
+	st = $(this).scrollTop();
+	$(".main_container_2_bg_photo").css("top", (st*(150.0/(window_height*2))-150));
+});*/
+
 
 
 $( window ).resize(function() {
 	beReadyPage();
 	setTimeout(function() { beReadyPage();}, 100);
-	return;
 });
 
 
@@ -151,18 +167,23 @@ $( window ).resize(function() {
 function beReadyPage() {
 	window_height = parseInt($( window ).height());
 	window_width = parseInt($( window ).width());
-	$(".swiper-container-wrapper").css("height", window_height);
-	$(".main_container_2").css("height", window_height);
+	$(".swiper-container-wrapper").css("height", window_height - parseInt($( ".fixed_menu_top" ).height()));
+	//$(".main_container_2").css("height", window_height);
+	$(".main_container_2_bg_photo").css("height", window_height + 150);
+	//$(".main_container_2_bg_photo").css("height", window_width);
+	
+	st = $(window).scrollTop();
+	$(".main_container_2_bg_photo").css('transform', 'translate3d(0px, ' + (st*(150.0/(window_height*2))-150) + 'px, 0px)');
 	
 	if(window_width < 620) { 
-		$(".mapouter").css("width", window_width - 20);
-		$(".gmap_iframe").css("width", window_width - 20);
-		$(".gmap_canvas").css("width", window_width - 20);
+		//$(".mapouter").css("width", window_width - 20);
+		//$(".gmap_iframe").css("width", window_width - 20);
+		//$(".gmap_canvas").css("width", window_width - 20);
 		document.getElementById('map1').style.width = ((window_width - 20) + "px");
 	} else {
-		$(".mapouter").css("width", 600);
-		$(".gmap_iframe").css("width", 600);
-		$(".gmap_canvas").css("width", 600);
+		//$(".mapouter").css("width", 600);
+		//$(".gmap_iframe").css("width", 600);
+		//$(".gmap_canvas").css("width", 600);
 		document.getElementById('map1').style.width = '600px';
 	}
 }
