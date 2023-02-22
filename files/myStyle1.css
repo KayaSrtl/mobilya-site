@@ -931,7 +931,6 @@ background-position: 20%;
 
 .maps {
 	display: block;
-	width: 100%;
 }
 
 .maps_cont {
@@ -1015,7 +1014,6 @@ background-position: 20%;
 		margin-bottom: 5px;
 		padding-top: 20px;
 		margin-top: 0px;
-		text-align: left;
 	}
 	
 	.maps {
@@ -1037,7 +1035,6 @@ background-position: 20%;
 		margin-bottom: 5px;
 		padding-top: 20px;
 		margin-top: 0px;
-		text-align: left;
 	}
 	
 	.social_media_part {
