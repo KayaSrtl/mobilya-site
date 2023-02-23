@@ -4,6 +4,7 @@ var window_height, window_width, old_active_index = 0, current_active_index = 0,
 
 $( document ).ready(function() {
 	var mySwiper = new Swiper('.swiper-container', {
+		speed: 200,
 		navigation: {
 			nextEl: '.swiper-button-next',
 			prevEl: '.swiper-button-prev'
@@ -11,9 +12,16 @@ $( document ).ready(function() {
 		autoplay: {
 			delay: 3000, // change delay as needed
 		},
-		on: {
+		keyboard: {
+			enabled: true,
+			onlyInViewport: false,
+		},
+		zoom: {
+			maxRatio: 6,
+		},
+		/*on: {
 			slideNextTransitionEnd: (swiper) => {
-				//console.log('SWIPED RIGHT');
+				console.log('SWIPED RIGHT');
 				if(!trans_click_pressed) {
 					if(current_active_index == mySwiper.slides.length - 1)
 						current_active_index = 0;
@@ -26,7 +34,7 @@ $( document ).ready(function() {
 				old_active_index = current_active_index;
 			},
 			slidePrevTransitionEnd: (swiper) => {
-				//console.log('SWIPED LEFT');
+				console.log('SWIPED LEFT');
 				if(!trans_click_pressed) {
 					if(current_active_index == 0)
 						current_active_index = mySwiper.slides.length - 1;
@@ -37,8 +45,9 @@ $( document ).ready(function() {
 				//new_active_index = current_active_index;//mySwiper.activeIndex;
 				changeTransClick(old_active_index, current_active_index);
 				old_active_index = current_active_index;
+				console.log(current_active_index + " " + mySwiper.realIndex);
 			}
-		},
+		},*/
 		loop: true,
 	});
 	
@@ -66,21 +75,20 @@ $( document ).ready(function() {
 	}
 	
 	$(".left_right_buttons_swipper").on('click', function(){
-		setTimeout(function() { mySwiper.autoplay.start();}, 6000);
+		//setTimeout(function() { mySwiper.autoplay.start();}, 6000);
 	});
 	
 	$(".trans_click").on('click', function(){
 		var index = $(this).attr('id').slice(11, 12);
-		if(index == current_active_index)
-		console.log(index);
-		mySwiper.slideTo(index);
-		trans_click_pressed = true;
-		current_active_index = index;
+		if(index == mySwiper.realIndex)
+			return;
+		//alert(index + " " + mySwiper.realIndex);
+		mySwiper.slideToLoop(index);
 	});
 	
 	beReadyPage();
 	
-	
+	mySwiper.zoom.enable();
 	/*
 	// Define the function to go to the last slide from the first slide
 	function goToLastSlide() {
@@ -114,31 +122,37 @@ $( document ).ready(function() {
 	
 	$(window).scroll(function(event){
 		if($(this).scrollTop() > window_height) {
-			mySwiper.autoplay.stop();
+			//mySwiper.autoplay.stop();
 		}
 		else {
-			mySwiper.autoplay.start();
+			//mySwiper.autoplay.start();
 		}
 	});
 	
 	var mySwiper = $(".swiper-container")[0].swiper;
-	//mySwiper.autoplay.stop();
-	mySwiper.autoplay.start();
+	mySwiper.autoplay.stop();
+	//mySwiper.autoplay.start();
 	$('.go_furniture_detail_a').mouseenter(function() {
-		mySwiper.autoplay.stop();
+		//mySwiper.autoplay.stop();
 	}).mouseleave(function() {
-		mySwiper.autoplay.start();
+		//mySwiper.autoplay.start();
 	})
-	
+	mySwiper.zoom.enable();
+	mySwiper.zoom.in();
+	setTimeout(function() { mySwiper.zoom.disable();}, 6000);
+	setTimeout(function() { mySwiper.zoom.out();}, 6000);
 	mySwiper.on('slideChange', function () {
-		if (mySwiper.autoplay.running) {
+		
+		/*if (mySwiper.autoplay.running) {
 			//console.log('Slide changed automatically');
 		} else {
-			mySwiper.autoplay.stop();
-			setTimeout(function() { mySwiper.autoplay.start();}, 6000);
+			//mySwiper.autoplay.stop();
+			//setTimeout(function() { mySwiper.autoplay.start();}, 6000);
 			//console.log('Slide changed by user');
-		}
-			
+		}*/
+		mySwiper.slideToLoop(mySwiper.realIndex);
+		changeTransClick(old_active_index, mySwiper.realIndex);
+		old_active_index = mySwiper.realIndex;
 	});
 });
 
@@ -167,7 +181,7 @@ $( window ).resize(function() {
 function beReadyPage() {
 	window_height = parseInt($( window ).height());
 	window_width = parseInt($( window ).width());
-	$(".swiper-container-wrapper").css("height", window_height - parseInt($( ".fixed_menu_top" ).height()));
+	//$(".swiper-container-wrapper").css("height", window_height - parseInt($( ".fixed_menu_top" ).height()));
 	//$(".main_container_2").css("height", window_height);
 	$(".main_container_2_bg_photo").css("height", window_height + 150);
 	//$(".main_container_2_bg_photo").css("height", window_width);
