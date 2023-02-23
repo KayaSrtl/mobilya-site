@@ -11,7 +11,7 @@ $( document ).ready(function() {
 		autoplay: {
 			delay: 3000, // change delay as needed
 		},
-		on: {
+		/*on: {
 			slideNextTransitionEnd: (swiper) => {
 				//console.log('SWIPED RIGHT');
 				if(!trans_click_pressed) {
@@ -38,7 +38,7 @@ $( document ).ready(function() {
 				changeTransClick(old_active_index, current_active_index);
 				old_active_index = current_active_index;
 			}
-		},
+		},*/
 		loop: true,
 	});
 	
@@ -71,11 +71,9 @@ $( document ).ready(function() {
 	
 	$(".trans_click").on('click', function(){
 		var index = $(this).attr('id').slice(11, 12);
-		if(index == current_active_index)
-		console.log(index);
-		mySwiper.slideTo(index);
-		trans_click_pressed = true;
-		current_active_index = index;
+		if(index == mySwiper.realIndex)
+			return;
+		mySwiper.slideToLoop(index);
 	});
 	
 	beReadyPage();
@@ -138,6 +136,10 @@ $( document ).ready(function() {
 			setTimeout(function() { mySwiper.autoplay.start();}, 6000);
 			//console.log('Slide changed by user');
 		}
+		
+		mySwiper.slideToLoop(mySwiper.realIndex);
+		changeTransClick(old_active_index, mySwiper.realIndex);
+		old_active_index = mySwiper.realIndex;
 			
 	});
 });
